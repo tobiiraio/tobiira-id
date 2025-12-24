@@ -1,8 +1,10 @@
 import { ThemeToggle } from '../components/theme-toggle'
+import AuthPage from './auth/page'
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-background p-8">
+    <AuthPage />
+   /*  <main className="min-h-screen bg-background p-8">
       <div className="flex justify-between items-start mb-8">
         <div>
           <h1 className="text-4xl font-bold text-foreground mb-4">
@@ -29,6 +31,6 @@ export default function Home() {
           <p>Secondary card using your brand colors</p>
         </div>
       </div>
-    </main>
+    </main> */
   )
 }
