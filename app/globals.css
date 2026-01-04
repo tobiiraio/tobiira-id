@@ -20,6 +20,11 @@
     --border: 212 100% 92%;              /* #d6eeff - tobiira-blue-100 */
     --input: 212 100% 92%;               /* #d6eeff - tobiira-blue-100 */
     --ring: 212 100% 50%;                /* #0062ff - tobiira-blue-700 */
+    
+    /* Tobiira brand colors as CSS variables for theme adaptation */
+    --tobiira-blue: 212 100% 50%;        /* #0062ff - main brand color */
+    --tobiira-blue-light: 212 100% 92%;  /* #d6eeff - for light mode accents */
+    --tobiira-blue-dark: 222 71% 17%;    /* #0e2a5d - for dark mode */
   }
 
   .dark {
@@ -39,6 +44,11 @@
     --border: 218 92% 40%;               /* #084bc5 - tobiira-blue-800 */
     --input: 218 92% 40%;                /* #084bc5 - tobiira-blue-800 */
     --ring: 212 100% 50%;                /* #0062ff - tobiira-blue-700 */
+    
+    /* Dark theme Tobiira brand colors */
+    --tobiira-blue: 214 100% 52%;        /* #0676ff - slightly lighter for dark mode */
+    --tobiira-blue-light: 212 100% 87%;  /* #b5e3ff - lighter for dark mode accents */
+    --tobiira-blue-dark: 222 71% 17%;    /* #0e2a5d - for dark mode backgrounds */
   }
 }
 
@@ -50,5 +60,20 @@
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-poppins), system-ui, sans-serif;
+  }
+}
+
+/* Custom utility classes for theme-aware Tobiira branding */
+@layer utilities {
+  .text-brand {
+    color: hsl(var(--tobiira-blue));
+  }
+  
+  .bg-brand {
+    background-color: hsl(var(--tobiira-blue));
+  }
+  
+  .border-brand {
+    border-color: hsl(var(--tobiira-blue));
   }
 }
