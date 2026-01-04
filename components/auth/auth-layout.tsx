@@ -30,7 +30,7 @@ const AuthLayout = ({ children, className, showFooter = true }: AuthLayoutProps)
               </a>
               <span className="text-muted-foreground">•</span>
               <a 
-                href="/privacy" 
+                href="https://www.tobiira.io/privacy" 
                 className="text-primary hover:underline transition-colors"
               >
                 Privacy Policy

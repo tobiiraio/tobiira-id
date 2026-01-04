@@ -9,14 +9,14 @@ interface LogoProps {
 
 const Logo = ({ size = 'md', className }: LogoProps) => {
   const sizes = {
-    sm: "text-xl",
-    md: "text-2xl", 
-    lg: "text-3xl"
+    sm: "text-xl",      // 20px
+    md: "text-2xl",     // 24px  
+    lg: "text-3xl"      // 30px
   }
 
   return (
     <span className={cn(
-      "font-bold text-foreground tracking-tight",
+      "font-light tracking-tight text-brand", // Uses theme-aware brand color
       sizes[size],
       className
     )}>

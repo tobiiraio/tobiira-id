@@ -20,7 +20,9 @@ const AuthHeader = ({
     <div className={cn("text-center space-y-4", className)}>
       {/* Tobiira Logo */}
       {showLogo && ( 
-        <Logo size="lg" className="mx-auto" />
+        <div className="flex justify-center">
+        <Logo size="lg"/>
+        </div>
           /*{ <div className="flex justify-center">
           <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center shadow-lg">
             <span className="text-primary-foreground font-bold text-xl">T</span>
