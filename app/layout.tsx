@@ -10,8 +10,8 @@ const poppins = Poppins({
 })
 
 export const metadata: Metadata = {
-  title: 'Tobiira Authentication',
-  description: 'Secure login for Tobiira platform',
+  title: 'Tobiira ID',
+  description: 'Tobiira Identity & Access',
 }
 
 export default function RootLayout({
