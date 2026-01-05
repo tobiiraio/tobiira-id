@@ -1,7 +1,8 @@
 {
-  "name": "t-auth",
+  "name": "tobiira-id",
   "version": "0.1.0",
   "private": true,
+  "description": "Universal identity and account management for Tobiira platform",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
