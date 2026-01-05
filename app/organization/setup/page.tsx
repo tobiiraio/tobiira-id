@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { AuthLayout } from '../../../components/auth/auth-layout'
-import { OrganizationSetup } from '../../../components/organisation/organization-setup'
+import { OrganizationSetup } from '../../../components/organization/organization-setup'
 
 interface CreateOrgFormData {
   name: string
