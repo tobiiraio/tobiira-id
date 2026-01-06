@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { OrganizationDashboard } from '../../components/organization'
 
 interface Organization {
@@ -24,6 +25,7 @@ const OrganizationPage = () => {
   const [user, setUser] = useState<User | null>(null)
   const [currentOrganizationId, setCurrentOrganizationId] = useState<string>()
   const [loading, setLoading] = useState(true)
+  const router = useRouter()
 
   useEffect(() => {
     const loadData = async () => {
@@ -71,7 +73,7 @@ const OrganizationPage = () => {
 
   const handleCreateOrganization = () => {
     console.log('Navigate to organization setup')
-    // window.location.href = '/organization/setup'
+    router.push('/organization/setup')
   }
 
   const handleSelectOrganization = (orgId: string) => {

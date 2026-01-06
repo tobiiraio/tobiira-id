@@ -127,14 +127,24 @@ const OrganizationDashboard = ({
 
       {/* Floating Action Button - Only for Organizations tab */}
       {activeTab === 'organizations' && (
-        <button
-          onClick={onCreateOrganization}
-          className="fixed bottom-20 right-4 w-14 h-14 bg-brand hover:bg-brand/90 text-white rounded-full shadow-lg flex items-center justify-center transition-all hover:scale-105 z-50"
-        >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-          </svg>
-        </button>
+        <div className="fixed bottom-20 right-4 z-50">
+          {/* Tooltip */}
+          <div className="absolute bottom-full right-0 mb-2 px-3 py-1 bg-foreground text-background text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+            Create Organization
+          </div>
+          
+          <button
+            onClick={onCreateOrganization}
+            className="group w-14 h-14 bg-brand hover:bg-brand/90 active:bg-brand/95 text-white rounded-full shadow-lg hover:shadow-xl flex items-center justify-center transition-all hover:scale-105 active:scale-95 duration-200"
+          >
+            <svg className="w-6 h-6 transition-transform group-hover:rotate-90 duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+            </svg>
+            
+            {/* Pulse animation */}
+            <div className="absolute inset-0 rounded-full bg-brand animate-ping opacity-20"></div>
+          </button>
+        </div>
       )}
 
       {/* Bottom Navigation */}
