@@ -1,139 +1,126 @@
 "use client"
 
 import { useState, useEffect } from 'react'
-import { AccountLayout } from '../../components/shared/account-layout'
-import { OrganizationDashboard } from '../../components/organization/org-dashboard'
+import { OrganizationDashboard } from '../../components/organization'
 
-// Mock data types
 interface Organization {
   id: string
   name: string
-  domain: string
   type: 'property_management' | 'hotel' | 'hybrid'
-  createdAt: string
-  isActive: boolean
-}
-
-interface OrganizationMember {
-  userId: string
-  email: string
-  fullName: string
-  category: 'owner' | 'operator' | 'occupant'
   role: 'owner' | 'admin' | 'staff' | 'member'
+  memberCount: number
   isActive: boolean
-  joinedAt: string
 }
 
-const OrgDashboardPage = () => {
-  const [organization, setOrganization] = useState<Organization | null>(null)
-  const [members, setMembers] = useState<OrganizationMember[]>([])
+interface User {
+  id: string
+  name: string
+  email: string
+  profilePicture?: string
+}
+
+const OrganizationPage = () => {
+  const [organizations, setOrganizations] = useState<Organization[]>([])
+  const [user, setUser] = useState<User | null>(null)
+  const [currentOrganizationId, setCurrentOrganizationId] = useState<string>()
   const [loading, setLoading] = useState(true)
 
-  const currentUserId = 'user-123'
-
   useEffect(() => {
-    const loadOrganizationData = async () => {
-      await new Promise(resolve => setTimeout(resolve, 1000))
+    const loadData = async () => {
+      await new Promise(resolve => setTimeout(resolve, 800))
 
-      const mockOrg: Organization = {
-        id: 'org-123',
-        name: 'Acme Properties',
-        domain: 'acmeproperties',
-        type: 'property_management',
-        createdAt: '2025-01-06T10:00:00Z',
-        isActive: true
-      }
+      setUser({
+        id: 'user-123',
+        name: 'Joram Granger',
+        email: 'joram@gmail.com'
+      })
 
-      const mockMembers: OrganizationMember[] = [
+      setOrganizations([
         {
-          userId: 'user-123',
-          email: 'joram@acmeproperties.com',
-          fullName: 'Joram Granger',
-          category: 'owner',
+          id: 'org-1',
+          name: 'Acme Properties',
+          type: 'property_management',
           role: 'owner',
-          isActive: true,
-          joinedAt: '2025-01-06T10:00:00Z'
+          memberCount: 5,
+          isActive: true
         },
         {
-          userId: 'user-456',
-          email: 'sarah@acmeproperties.com',
-          fullName: 'Sarah Johnson',
-          category: 'operator',
+          id: 'org-2',
+          name: 'Sunset Hotels', 
+          type: 'hotel',
           role: 'admin',
-          isActive: true,
-          joinedAt: '2025-01-06T11:00:00Z'
+          memberCount: 12,
+          isActive: true
+        },
+        {
+          id: 'org-3',
+          name: 'Urban Ventures',
+          type: 'hybrid',
+          role: 'staff',
+          memberCount: 8,
+          isActive: true
         }
-      ]
+      ])
 
-      setOrganization(mockOrg)
-      setMembers(mockMembers)
+      setCurrentOrganizationId('org-1')
       setLoading(false)
     }
 
-    loadOrganizationData()
+    loadData()
   }, [])
 
-  const handleInviteMember = () => {
-    console.log('Navigate to invite member flow')
+  const handleCreateOrganization = () => {
+    console.log('Navigate to organization setup')
+    // window.location.href = '/organization/setup'
   }
 
-  const handleManageMembers = () => {
-    console.log('Navigate to members management')
+  const handleSelectOrganization = (orgId: string) => {
+    console.log('Switch to organization:', orgId)
+    setCurrentOrganizationId(orgId)
+    // Update user context, refresh data for new org
   }
 
-  const handleOrganizationSettings = () => {
-    console.log('Navigate to organization settings')
+  const handleOrganizationAction = (orgId: string, action: string) => {
+    console.log('Organization action:', { orgId, action })
+    // Handle menu actions: edit, leave, transfer ownership, etc.
   }
 
-  const handleLaunchApp = () => {
-    if (!organization) return
-    
-    const appUrl = organization.type === 'hotel' 
-      ? 'https://stay.tobiira.io/dashboard'
-      : 'https://one.tobiira.io/dashboard'
-    
-    console.log('Would launch app:', appUrl)
+  const handleSettingAction = (settingId: string, action: string) => {
+    console.log('Setting action:', { settingId, action })
+    // Navigate to specific setting page
+    // window.location.href = `/account/${settingId}`
   }
 
   if (loading) {
     return (
-      <AccountLayout>
-        <div className="flex items-center justify-center py-12">
-          <div className="text-center">
-            <div className="w-8 h-8 border-2 border-brand border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-            <p className="text-muted-foreground">Loading organization...</p>
-          </div>
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-6 h-6 border-2 border-brand border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-sm text-muted-foreground">Loading...</p>
         </div>
-      </AccountLayout>
+      </div>
     )
   }
 
-  if (!organization) {
+  if (!user) {
     return (
-      <AccountLayout>
-        <div className="text-center py-12">
-          <p className="text-muted-foreground">Organization not found</p>
-        </div>
-      </AccountLayout>
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <p className="text-muted-foreground">User not found</p>
+      </div>
     )
   }
 
   return (
-    <AccountLayout
-      title={organization.name}
-      subtitle="Organization Dashboard"
-    >
-      <OrganizationDashboard
-        organization={organization}
-        members={members}
-        currentUserId={currentUserId}
-        onInviteMember={handleInviteMember}
-        onManageMembers={handleManageMembers}
-        onOrganizationSettings={handleOrganizationSettings}
-        onLaunchApp={handleLaunchApp}
-      />
-    </AccountLayout>
+    <OrganizationDashboard
+      organizations={organizations}
+      user={user}
+      currentOrganizationId={currentOrganizationId}
+      onCreateOrganization={handleCreateOrganization}
+      onSelectOrganization={handleSelectOrganization}
+      onOrganizationAction={handleOrganizationAction}
+      onSettingAction={handleSettingAction}
+    />
   )
 }
 
-export default OrgDashboardPage
+export default OrganizationPage

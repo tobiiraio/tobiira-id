@@ -41,15 +41,8 @@ const OrganizationSetupPage = () => {
       
       console.log('Organization created:', data)
       
-      // Determine redirect URL based on organization type
-      let redirectUrl = continueUrl
-      if (!redirectUrl) {
-        redirectUrl = data.type === 'hotel' 
-          ? 'https://stay.tobiira.io/dashboard'
-          : 'https://one.tobiira.io/dashboard'
-      }
-      
-      console.log('Would redirect to:', redirectUrl)
+      // After successful organization creation, redirect to organization dashboard
+      window.location.href = '/organization'
       
     } catch (error) {
       if (error instanceof Error) {
@@ -62,7 +55,7 @@ const OrganizationSetupPage = () => {
     }
   }
 
-  const handleJoinOrganization = async (invitationCode: string) => {
+  const handleJoinOrganization = async (data: { invitationCode: string }) => {
     setLoading(true)
     setError('')
     
@@ -70,16 +63,10 @@ const OrganizationSetupPage = () => {
       // Simulate joining organization
       await new Promise(resolve => setTimeout(resolve, 2000))
       
-      console.log('Joined organization with code:', invitationCode)
+      console.log('Joined organization with code:', data.invitationCode)
       
-      // Determine redirect URL based on organization type
-      let redirectUrl = continueUrl
-      if (!redirectUrl) {
-        // For demo, assume hotel organization
-        redirectUrl = 'https://stay.tobiira.io/dashboard'
-      }
-      
-      console.log('Would redirect to:', redirectUrl)
+      // After successful organization join, redirect to organization dashboard
+      window.location.href = '/organization'
       
     } catch (error) {
       if (error instanceof Error) {
