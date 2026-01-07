@@ -12,14 +12,16 @@ interface ProfileFormData {
 
 const ProfileSetupPage = () => {
   const [email, setEmail] = useState('')
+  const [continueUrl, setContinueUrl] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
-  // Get email from URL params (passed from OTP verification)
+  // Get email and continue from URL params (passed from OTP verification)
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const urlParams = new URLSearchParams(window.location.search)
       const emailParam = urlParams.get('email')
+      const continueParam = urlParams.get('continue')
       
       if (emailParam) {
         setEmail(emailParam)
@@ -27,6 +29,10 @@ const ProfileSetupPage = () => {
         // If no email in URL, redirect back to auth
         console.log('No email found, redirect to auth')
         // router.push('/auth')
+      }
+      
+      if (continueParam) {
+        setContinueUrl(continueParam)
       }
     }
   }, [])
@@ -58,9 +64,19 @@ const ProfileSetupPage = () => {
       
       console.log('Registration completed:', { email, ...data })
       
-      // On success, navigate to dashboard or welcome screen
-      // router.push('/dashboard?welcome=true')
-      console.log('Navigate to dashboard with welcome message')
+      // After profile completion, redirect to organization setup
+      const params = new URLSearchParams({ 
+        email,
+        name: data.fullName
+      })
+      
+      // Add continue parameter if it exists
+      if (continueUrl) {
+        params.append('continue', continueUrl)
+      }
+      
+      const orgSetupUrl = `/organization/setup?${params.toString()}`
+      window.location.href = orgSetupUrl
       
     } catch (error) {
       if (error instanceof Error) {
@@ -97,6 +113,18 @@ const ProfileSetupPage = () => {
         loading={loading}
         error={error}
       />
+      
+      {/* Show return destination */}
+      {continueUrl && (
+        <div className="text-center mt-4">
+          <p className="text-xs text-muted-foreground">
+            After setup, you'll go to{' '}
+            <span className="text-brand font-medium">
+              {new URL(continueUrl).hostname}
+            </span>
+          </p>
+        </div>
+      )}
     </AuthLayout>
   )
 }
