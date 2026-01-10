@@ -1,13 +1,14 @@
 "use client"
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { AuthLayout, AuthHeader, AuthModeToggle, EmailForm, type AuthMode } from '../../components/auth'
-/* import { authApi } from '../../lib/auth-api' */
 
 const AuthPage = () => {
   const [mode, setMode] = useState<AuthMode>('login')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const router = useRouter()
 
   const getContent = (mode: AuthMode) => {
     if (mode === 'login') {
@@ -35,11 +36,24 @@ const AuthPage = () => {
       // Simulate API call for UI testing
       await new Promise(resolve => setTimeout(resolve, 1500))
       
-      console.log('Email submitted:', email)
+      console.log('Email submitted:', email, 'Mode:', mode)
       
-      // Navigate to OTP verification screen with URL params
-      const otpUrl = `/auth/verify-otp?email=${encodeURIComponent(email)}&mode=${mode}`
-      window.location.href = otpUrl
+      // Navigate to OTP verification screen with URL params using Next.js router
+      const params = new URLSearchParams({
+        email,
+        mode
+      })
+      
+      // Get continue parameter from current URL if it exists
+      if (typeof window !== 'undefined') {
+        const currentParams = new URLSearchParams(window.location.search)
+        const continueParam = currentParams.get('continue')
+        if (continueParam) {
+          params.append('continue', continueParam)
+        }
+      }
+      
+      router.push(`/auth/verify-otp?${params.toString()}`)
       
     } catch (error) {
       if (error instanceof Error) {
@@ -47,7 +61,6 @@ const AuthPage = () => {
       } else {
         setError('Failed to send verification code. Please try again.')
       }
-      throw error
     } finally {
       setLoading(false)
     }

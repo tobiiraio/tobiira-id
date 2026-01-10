@@ -127,14 +127,15 @@ const OTPInput = ({
               "w-12 h-14 text-center text-xl font-semibold rounded-xl border-2",
               "transition-all duration-200 ease-in-out",
               "focus:outline-none focus:ring-0",
-              // Normal state
-              "border-border bg-background text-foreground",
+              // Normal state - FIXED: Better contrast in dark mode
+              "border-border bg-background",
+              "text-gray-900 dark:text-gray-100", // Explicit dark/light text colors
               // Focus state
               "focus:border-brand focus:scale-105",
-              // Filled state
-              otp[index] && "border-brand bg-brand/5",
+              // Filled state - FIXED: Ensure text remains visible
+              otp[index] && "border-brand bg-brand/5 text-gray-900 dark:text-gray-100",
               // Error state
-              error && "border-red-500 bg-red-50 dark:bg-red-500/10",
+              error && "border-red-500 bg-red-50 dark:bg-red-500/10 text-gray-900 dark:text-gray-100",
               // Loading state
               loading && "opacity-50 cursor-not-allowed",
               // Active state animation

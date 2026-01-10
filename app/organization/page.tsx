@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { OrganizationDashboard } from '../../components/organization'
+import { OrganizationDashboard } from '../../components/organization/main-dashboard'
 
 interface Organization {
   id: string
@@ -87,12 +87,6 @@ const OrganizationPage = () => {
     // Handle menu actions: edit, leave, transfer ownership, etc.
   }
 
-  const handleSettingAction = (settingId: string, action: string) => {
-    console.log('Setting action:', { settingId, action })
-    // Navigate to specific setting page
-    // window.location.href = `/account/${settingId}`
-  }
-
   if (loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
@@ -120,7 +114,6 @@ const OrganizationPage = () => {
       onCreateOrganization={handleCreateOrganization}
       onSelectOrganization={handleSelectOrganization}
       onOrganizationAction={handleOrganizationAction}
-      onSettingAction={handleSettingAction}
     />
   )
 }

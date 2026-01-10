@@ -44,7 +44,7 @@ const OTPPage = () => {
       } else {
         // Navigate to dashboard
         console.log('Navigate to dashboard')
-        // window.location.href = '/dashboard'
+        window.location.href = '/organization'
       }
       
     } catch (error) {
