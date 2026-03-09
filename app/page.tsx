@@ -1,36 +1,41 @@
-import { ThemeToggle } from '../components/theme-toggle'
-import AuthPage from './auth/page'
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <AuthPage />
-   /*  <main className="min-h-screen bg-background p-8">
-      <div className="flex justify-between items-start mb-8">
-        <div>
-          <h1 className="text-4xl font-bold text-foreground mb-4">
-            Welcome to Tobiira
-          </h1>
-          <p className="text-lg text-muted-foreground">
-            Secure authentication for your business
-          </p>
-        </div>
-        <ThemeToggle />
+    <main className="min-h-screen bg-background px-6 py-10">
+      <div className="mx-auto flex min-h-[calc(100vh-5rem)] max-w-md items-center justify-center">
+        <Card className="w-full shadow-sm">
+          <CardHeader className="text-center">
+            <CardTitle className="text-3xl">Tobiira</CardTitle>
+            <CardDescription>
+              Access your properties, stays, and teams across the Tobiira
+              platform.
+            </CardDescription>
+          </CardHeader>
+
+          <CardContent className="space-y-3">
+            <Button asChild className="w-full">
+              <Link href="/signup">Create account</Link>
+            </Button>
+
+            <Button asChild variant="outline" className="w-full">
+              <Link href="/login">Log in</Link>
+            </Button>
+
+            <p className="pt-4 text-center text-xs text-muted-foreground">
+              © {new Date().getFullYear()} Tobiira
+            </p>
+          </CardContent>
+        </Card>
       </div>
-      
-      <div className="space-y-4 max-w-md">
-        <div className="bg-card border border-border p-6 rounded-lg">
-          <h2 className="text-xl font-semibold text-card-foreground mb-4">
-            Get Started
-          </h2>
-          <button className="bg-primary text-primary-foreground px-6 py-3 rounded-lg hover:bg-primary/90 transition-colors">
-            Login with OTP
-          </button>
-        </div>
-        
-        <div className="bg-secondary text-secondary-foreground p-4 rounded-lg">
-          <p>Secondary card using your brand colors</p>
-        </div>
-      </div>
-    </main> */
-  )
+    </main>
+  );
 }
